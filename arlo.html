@@ -51,6 +51,10 @@
 			type: 'arlo-config',
 			required: true
 		},
+		devicetype: {
+			value: 'basestation',
+			required: true
+		},
 		device: {
 			value: '',
 			required: true
@@ -76,7 +80,8 @@
 			if (config && config.id) {
 				$.getJSON('arlo/devices', {
 					service: config.id,
-					type: 'basestation'
+					//type: 'basestation'
+					type: $('#node-input-devicetype').val()
 				})
 					.done(function(data) {
 						RED.notify('Devices received.', 'info')
@@ -109,6 +114,14 @@
     <input type='text' id='node-input-name' />
   </div>
   <div class='form-row'>
+    <label for='node-input-devicetype'><i class='fa fa-tasks'></i> Type</label>
+    <select id='node-input-devicetype' name='node-input-devicetype' style='width: 250px;'>
+	<option value="basestation">basestation</option>
+	<option value="camera">camera</option>
+	</select>
+  </div>
+
+  <div class='form-row'>
     <label for='node-input-device'><i class='fa fa-tasks'></i> Device</label>
     <select id='node-input-device' name='node-input-device' style='width: 250px;'>
     </select>
@@ -121,6 +134,7 @@
 	<option value="motion-detected">motion-detected</option>
 	<option value="audio-detected">audio-detected</option>
 	<option value="low-battery">low-battery</option>
+	<option value="message">message</option>
     </select>
   </div>
 </script>
